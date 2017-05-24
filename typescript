@@ -1,0 +1,8 @@
+Le script a débuté sur mer. 24 mai 2017 16:53:20 CEST
+rails@ubuntu:~/code/tweetspace$ exitTweet.get_latest()
+> q
+bash: erreur de syntaxe près du symbole inattendu « q »
+rails@ubuntu:~/code/tweetspace$ Tweet.get_latest() qexit[KTweet.get_latestexit[K
+exit
+
+Script terminé sur mer. 24 mai 2017 16:53:30 CEST
