@@ -5,15 +5,16 @@ class Tweet < ActiveRecord::Base
 MY_APPLICATION_NAME = "TweetSpace_Ingesup"
   
   def self.get_latest
-  	puts("Hello"); / Est affiché /
+  	puts("Hello"); # Est affiché
+
   	tweets = client.user_timeline("gem")
-    /tweets = client.statuses.user_timeline? :screen_name => MY_APPLICATION_NAME # hit the API/
-    puts("Hello3"); / N'est pas affiché /
+    # tweets = client.statuses.user_timeline? :screen_name => MY_APPLICATION_NAME # hit the API
+    puts("Hello3"); # N'est pas affiché
     tweets.each do |t|
       created = DateTime.parse(t.created_at)
       unless Tweet.exists?(["created=?", created])
         Tweet.create({:content => t.text, :created => created })
-       end
+      end
     end
     
   end
