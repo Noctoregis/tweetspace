@@ -1,36 +1,32 @@
-require 'grackle'
-
 class Tweet < ActiveRecord::Base
 
 MY_APPLICATION_NAME = "TweetSpace_Ingesup"
   
   def self.get_latest
-  	puts("Hello"); # Est affiché
-
-  	tweets = client.user_timeline("gem")
-    # tweets = client.statuses.user_timeline? :screen_name => MY_APPLICATION_NAME # hit the API
-    puts("Hello3"); # N'est pas affiché
+  	#tweets = client.user_timeline("Space_Station")
+    #tweets = client.get("https://api.twitter.com/1.1/search/tweets.json?q=%40from%3ASpace_Station+filter%3Aimages&result_type=popular")
+    search_options = {
+    result_type: "popular",
+    from: "Space_Station",
+    filter: "images",
+    media: "true",
+    tweet_mode: 'extended',
+    }
+    tweets = client.search("", search_options).take(12)
     tweets.each do |t|
-      created = DateTime.parse(t.created_at)
-      unless Tweet.exists?(["created=?", created])
-        Tweet.create({:content => t.text, :created => created })
-      end
+      puts(t.favorite_count)
     end
-    
   end
   
   private
   def self.client
-    Grackle::Client.new(
-      ssl: true,
-      auth: {
-        type: :oauth,
-        claonsumer_key: 'Gzm6I93ZW8sR2LMbCpod7HOnf',
-        consumer_secret: 'nIOyQmzYq2wnwYMvaNHjhNutjqXnD2uTNFbvsph5KpsqxdHtJ7',
-        token: "440215471-ViSDu9rTcC9OzWKmgq5cJRryALIOaJdxh28j3N0g",
-        token_secret: "xOkniXd5Pvg0QJLXxmtWbIou5wmq2aOJRZUhWy7mVMIXA",
-      }
-    )
+  client = Twitter::REST::Client.new do |config|
+      config.consumer_key        = "Gzm6I93ZW8sR2LMbCpod7HOnf"
+      config.consumer_secret     = "nIOyQmzYq2wnwYMvaNHjhNutjqXnD2uTNFbvsph5KpsqxdHtJ7"
+      config.access_token        = "440215471-ViSDu9rTcC9OzWKmgq5cJRryALIOaJdxh28j3N0g"
+      config.access_token_secret = "xOkniXd5Pvg0QJLXxmtWbIou5wmq2aOJRZUhWy7mVMIXA"
+    end
   end
+
 end
 

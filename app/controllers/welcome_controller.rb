@@ -1,4 +1,5 @@
 class WelcomeController < ApplicationController
-  def index
+  def index 
+    @tweet_news = Tweet::get_latest
   end
 end

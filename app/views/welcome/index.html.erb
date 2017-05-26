@@ -1,1 +1,14 @@
 <h1>TweetSpace</h1>
+<table>
+  <% @tweet_news.each do |t| %>
+      <%= t.text%>
+      <%= link_to image_tag(t.media[0]["media_url"], width:"30%", height:"30%", crop: :fill), t.media[0]["expanded_url"].to_s ,target: :_blank%>
+    </td>
+  <% end %>
+</table>
+
+<script>
+function showDetails() {
+    ;
+}
+</script>
